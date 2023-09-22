@@ -1,0 +1,91 @@
+﻿@page "/"
+@page "/sinhvienlist"
+
+@using System.ComponentModel
+@using AntDesign.TableModels
+@using QuanLySinhVien.Data;
+@using QuanLySinhVien.Service;
+@using AntDesign;
+@using QuanLySinhVien.Pages;
+@using IronXL;
+
+@using System.Collections.Generic;
+@using System.Data;
+
+@inject IJSRuntime iJSRuntime;
+
+<Form Model="@TaskSearchSinhViens"
+      OnFinish="Search">
+    <AntDesign.FormItem>
+        <Input @bind-Value="@context.Name" />
+    </AntDesign.FormItem>
+    <AntDesign.FormItem WrapperColOffset="8" WrapperColSpan="16">
+        <Button Type="@AntDesign.ButtonType.Primary" HtmlType="submit">
+            Tìm kiếm
+        </Button>
+    </AntDesign.FormItem>
+</Form>
+<br>
+<br>
+<InputFile  OnChange="@OpenExcelFileFromDisk" />
+<br><br>
+<Button Class="btn-primary" @onclick="ExportExcel">ExportExcel</Button>
+<br>
+<br>
+<Button Type="primary" @onclick="Add">  Thêm mới  </Button>
+
+<Table Class="SinhVienViewModel" DataSource="@SinhVienViewModels" PageIndex="sinhVienPaging.PageIndex"
+       PageSize="sinhVienPaging.PageSize"
+       Total="sinhVienPaging.Total"
+       OnPageIndexChange="PageIndexChangeAsync"
+       OnPageSizeChange="PageSizeChangeAsync">
+            <Column @bind-Field="@context.STT" />
+            <Column @bind-Field="@context.Name" />
+            <Column @bind-Field="@context.Birth" />
+            <Column @bind-Field="@context.Class" />
+            <Column @bind-Field="@context.Score" />
+            <ActionColumn Title="Action" Fixed="right" Class="btn-link">
+                <Icon Type="edit" Theme="outline" @onclick="() => Edit(context)" Width="20" Height="20" />
+
+                <Popconfirm Title="Sure to delete?"
+                            OnConfirm="()=> DeleteSinhVienAsync(context.Guid)"
+                            OkText="Yes"
+                            CancelText="No">
+                    <Icon Type="delete" Theme="outline" Width="20" Height="20" />
+                </Popconfirm>
+            </ActionColumn>
+        </Table>
+
+@* <table>
+    <thead>
+        <tr>
+            @foreach (DataColumn column in displayDataTable.Columns)
+            {
+                <th>
+                    @column.ColumnName
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in displayDataTable.Rows)
+        {
+            <tr>
+                @foreach (DataColumn column in displayDataTable.Columns)
+                {
+                    <td>
+                        @row[column.ColumnName].ToString()
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table> *@
+
+<Drawer Closable="true" Visible="visible" Placement="right" Width=500 Title='("Sinh Viên")' OnClose="() => visible = false">
+
+    <EditSinhVien @ref="editSinhVien" Cancel="() => visible = false" ValueChange="Save"></EditSinhVien>
+</Drawer>
+
+
+  

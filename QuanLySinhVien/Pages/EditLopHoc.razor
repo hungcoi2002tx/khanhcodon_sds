@@ -1,0 +1,50 @@
+﻿@using AntDesign
+@using QuanLySinhVien.Data
+@using QuanLySinhVien.Service
+
+
+@inject IMessageService _message
+@inject NavigationManager Navigation
+<Form Model="EditModel">
+    <Template style="height:90%">
+        <Row Gutter="16">
+            <AntDesign.Col Span="6">
+
+            </AntDesign.Col>
+            <AntDesign.Col Span="20">
+                <Text>Tên lớp học:</Text>
+                <Input @bind-Value="@EditModel.ClassName" Style="text-align: center;" />
+            </AntDesign.Col>
+            <AntDesign.Col Span="20">
+                <Text>Tên môn học:</Text>
+                <Input @bind-Value="@EditModel.ObjectName" Style="text-align: center;" />
+            </AntDesign.Col>
+
+
+
+        </Row>
+      
+        <br />
+        <Row Gutter="16">
+        <AntDesign.Col Span="8">
+        <Text>Trạng thái:</Text>
+                <Switch @bind-Checked="@EditModel.Status" />
+        @* <Input @bind-Value="@EditModel.Status" /> *@
+        </AntDesign.Col>
+
+        </Row>
+        <br />
+        <br />
+        <br />
+        <Row>
+            <AntDesign.Col Span="7">
+
+            </AntDesign.Col>
+            <AntDesign.Col Span="12">
+                <Button Type="default" OnClick="Cancel">Hủy bỏ</Button>
+                <Button Type="primary" OnClick="UpdateLopHoc">Đồng ý</Button>
+            </AntDesign.Col>
+        </Row>
+    </Template>
+</Form>
+

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="FluentNHibernate" Version="3.2.1" />
+	  <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.57.0" />
+	  <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
+	  <PackageReference Include="NHibernate" Version="5.4.6" />
+	  <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.1.1" />
+	  <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Share\Share.csproj" />
+	</ItemGroup>
+
+</Project>

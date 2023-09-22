@@ -1,0 +1,43 @@
+﻿@page "/lophoclist"
+
+@using System.ComponentModel
+@using AntDesign.TableModels
+@using QuanLySinhVien.Data;
+@using QuanLySinhVien.Service;
+@using AntDesign;
+@using QuanLySinhVien.Pages;
+@using IronXL;
+
+@using System.Collections.Generic;
+@using System.Data;
+
+@inject IJSRuntime iJSRuntime;
+
+<Button Type="primary" @onclick="Add">  Thêm mới  </Button>
+
+<Table Class="LopHocViewModel" DataSource="@LopHocViewModels" PageIndex="lopHocPaging.PageIndex"
+       PageSize="lopHocPaging.PageSize"
+       Total="lopHocPaging.Total"
+       OnPageIndexChange="PageIndexChangeAsync"
+       OnPageSizeChange="PageSizeChangeAsync">
+    <Column @bind-Field="@context.STT" />
+    <Column @bind-Field="@context.ClassName" />
+    <Column @bind-Field="@context.ObjectName" />
+    <Column @bind-Field="@context.Status" />
+    <ActionColumn Title="Action" Fixed="right" Class="btn-link">
+        <Icon Type="edit" Theme="outline" @onclick="() => Edit(context)" Width="20" Height="20" />
+
+        <Popconfirm Title="Sure to delete?"
+                    OnConfirm="()=> DeleteLopHocAsync(context.ClassId)"
+        OkText="Yes"
+        CancelText="No">
+        <Icon Type="delete" Theme="outline" Width="20" Height="20" />
+        </Popconfirm>
+    </ActionColumn>
+</Table>
+
+<Drawer Closable="true" Visible="visible" Placement="right" Width=500 Title='("Lớp học")' OnClose="() => visible = false">
+
+    <EditLopHoc @ref="editLopHoc" Cancel="() => visible = false" ValueChange="Save"></EditLopHoc>
+</Drawer>
+
